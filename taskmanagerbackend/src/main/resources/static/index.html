@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Task Manager</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+
+    <!-- ===== LOGIN / REGISTER (shown when logged out) ===== -->
+    <div id="auth-screen" class="app-container">
+      <div class="auth-box">
+        <h2 id="auth-title">Login</h2>
+
+        <form id="login-form">
+          <input type="email" id="login-email" placeholder="Email" required />
+          <input type="password" id="login-password" placeholder="Password" required />
+          <p class="error-text" id="login-error"></p>
+          <button type="submit">Login</button>
+        </form>
+
+        <form id="register-form" class="hidden">
+          <input type="text" id="register-name" placeholder="Full name" required />
+          <input type="email" id="register-email" placeholder="Email" required />
+          <input type="password" id="register-password" placeholder="Password" required />
+          <select id="register-role">
+            <option value="DEVELOPER">Developer</option>
+            <option value="MANAGER">Manager</option>
+          </select>
+          <p class="error-text" id="register-error"></p>
+          <button type="submit">Register</button>
+        </form>
+
+        <p class="switch-link" id="switch-link">Don't have an account? Register</p>
+      </div>
+    </div>
+
+    <!-- ===== MAIN APP (shown when logged in) ===== -->
+    <div id="main-screen" class="app-container hidden">
+      <header class="topbar">
+        <h1>Task Manager</h1>
+        <nav>
+          <button class="nav-btn active" id="nav-projects">Projects &amp; Tasks</button>
+          <button class="nav-btn" id="nav-dashboard">Dashboard</button>
+        </nav>
+        <div class="user-info">
+          <span id="user-info-text"></span>
+          <button id="logout-btn">Logout</button>
+        </div>
+      </header>
+
+      <main>
+        <!-- Dashboard page -->
+        <div id="page-dashboard" class="panel hidden">
+          <h2>Dashboard</h2>
+          <div id="dashboard-content">
+            <p>Loading dashboard...</p>
+          </div>
+        </div>
+
+        <!-- Projects + Tasks page -->
+        <div id="page-projects" class="two-column">
+          <div class="panel">
+            <h2>Projects</h2>
+
+            <form id="create-project-form" class="inline-form hidden">
+              <input type="text" id="project-name" placeholder="Project name" required />
+              <input type="text" id="project-description" placeholder="Description" />
+              <button type="submit">Add Project</button>
+            </form>
+
+            <p class="error-text" id="project-error"></p>
+
+            <ul class="project-list" id="project-list"></ul>
+            <p id="no-projects-msg" class="hidden">No projects yet.</p>
+          </div>
+
+          <div class="panel">
+            <h2>Tasks</h2>
+            <div id="task-board-content">
+              <p>Select a project on the left to see its tasks.</p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
