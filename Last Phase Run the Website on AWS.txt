@@ -1,0 +1,78 @@
+Last Phase Run the Website on AWS (Ubuntu)
+
+# Connect to EC2
+ssh -i your-key.pem ubuntu@<YOUR_EC2_PUBLIC_IP>
+or given ssh command in cloud provider
+
+# Update package list
+sudo apt update
+
+# Install Docker and Git
+sudo apt install -y docker.io git
+
+# Install Docker Compose
+sudo apt install -y docker-compose
+
+# Verify Docker & Docker Compose
+docker --version
+docker compose version
+
+# Allow Docker to run without sudo
+sudo usermod -aG docker $USER
+
+# Log out
+exit
+
+# Reconnect to EC2
+ssh -i your-key.pem ubuntu@<YOUR_EC2_PUBLIC_IP>
+or given ssh command in cloud provider
+
+# Clone your GitHub repository
+git clone https://github.com/<your-username>/<your-repo>.git
+cd <your-repo>
+
+# Example
+git clone https://github.com/mohitkumar162/Task-Pilot.git
+cd Task-Pilot
+
+# Generate JWT Secret
+openssl rand -base64 32
+
+# Copy the generated secret
+
+# Create the environment file
+cp .env.example .env
+nano .env
+
+# Fill in the following values
+DB_PASSWORD=yourStrongPassword
+JWT_SECRET=yourGeneratedJWTSecret
+
+# Build and start the application
+docker compose up -d --build
+
+# Verify running containers
+docker compose ps
+
+# Verify the backend started successfully
+docker compose logs -f backend
+
+# Wait until you see:
+Started TaskManagerApplication
+
+# Press Ctrl + C to exit the logs.
+
+# Open the application
+http://<YOUR_EC2_PUBLIC_IP>:8080
+
+# Delete / Clean Up
+
+# Stop and remove containers
+docker compose down
+
+# Then delete the following resources from your cloud provider (AWS):
+# • EC2 Instance
+# • EBS Volume (if not deleted automatically)
+# • Key Pair (optional)
+# • Security Group (optional)
+# • Elastic IP (if allocated)
